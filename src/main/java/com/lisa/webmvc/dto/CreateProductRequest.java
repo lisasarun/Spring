@@ -1,4 +1,9 @@
 package com.lisa.webmvc.dto;
 
-public class CreateProductRequest {
+import java.math.BigDecimal;
+
+public record CreateProductRequest (
+        String name,
+        BigDecimal price
+){
 }
