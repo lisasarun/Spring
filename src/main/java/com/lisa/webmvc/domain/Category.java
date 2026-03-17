@@ -14,6 +14,8 @@ import java.util.List;
 @Entity
 @Table(name="categories")
 public class Category {
+
+    //datatype primarykey is Integer
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

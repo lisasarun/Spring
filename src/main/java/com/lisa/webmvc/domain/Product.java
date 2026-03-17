@@ -1,20 +1,19 @@
 package com.lisa.webmvc.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 public class Product {
+    //datatype product string
     @Id
     private String code;
 
@@ -30,4 +29,6 @@ public class Product {
     @ManyToOne
     private Category category;
 
+    @OneToMany(mappedBy = "product")
+    private List<OrderLine> orderLine;
 }

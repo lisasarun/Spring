@@ -3,6 +3,8 @@ package com.lisa.webmvc.controller;
 import com.lisa.webmvc.dto.CreateProductRequest;
 import com.lisa.webmvc.dto.ProductResponse;
 import com.lisa.webmvc.dto.UpdateProductRequest;
+import com.lisa.webmvc.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,12 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 @Slf4j
 public class ProductController {
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/{code}")
     public ProductResponse getProductsByCode(@PathVariable String code){
         log.info("getProductsByCode:{}",code);
@@ -30,10 +38,14 @@ public class ProductController {
         log.info("pageNumber:{},pageSize:{},name:{}",pageNumber,pageSize,name);
         return List.of();
     }
+
+    //create product
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createNewProduct(@RequestBody CreateProductRequest createProductRequest){
+    public ProductResponse createNewProduct(@Valid @RequestBody CreateProductRequest createProductRequest){
         log.info("createProductRequest: {}",createProductRequest);
+
+        return productService.createNewProduct(createProductRequest);
     }
     @PutMapping("/{code}")
     public void updateProductByCode(
